@@ -7,11 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
+  <div id="wrapper">
+    <div id="sidebar">
+      <h2>Environments</h2>
+      <%= render :partial => "tree", :locals => {:environments => @environments} %>
+    </div>
+    <div id="main">
+      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+  </div>
 </body>
 </html>

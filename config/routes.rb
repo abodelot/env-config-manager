@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root 'home#index'
+  root 'environments#index'
+
+  resources :environments
+
+  resources :variables
+  namespace :api do
+    resources :variables
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

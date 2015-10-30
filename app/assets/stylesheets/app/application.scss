@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);;
+
+$purple: #5B458C;
+$purple_light: #665194;
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background: $purple;
+  color: #333;
+}
+
+* {
+  box-sizing: border-box;
+}
+#wrapper {
+  height: 100%;
+  width: 1200px;
+  margin: auto;
+}
+
+#header {
+  height: 60px;
+  line-height: 60px;
+  h1 {
+    margin-top: 0;
+  }
+}
+#sidebar {
+  color: #f0f0f0;
+  float: left;
+  width: 20%;
+  height: 100%;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    ul {
+      padding-left: 1em;
+    }
+  }
+  a {
+    color: #f0f0f0;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    &:hover {
+      background-color: $purple_light;
+    }
+    &.current {
+      background: white;
+      color: $purple;
+    }
+  }
+}
+
+#main {
+  padding: 10px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 100%;
+  margin-left: 20%;
+  overflow-y: scroll;
+}
+
+
+// Notifications
+// -----------------------------------------------------------------------------
+
+div.ui-pnotify {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
