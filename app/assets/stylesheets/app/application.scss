@@ -3,6 +3,10 @@
 $purple: #5B458C;
 $purple_light: #665194;
 
+
+$link_color: #79589f;
+$link_color_hover: #60467e;
+
 html, body {
   height: 100%;
 }
@@ -14,6 +18,14 @@ body {
   color: #333;
 }
 
+a {
+  color: $link_color;
+  text-decoration: none;
+  &:hover {
+    color: $link_color_hover;
+    text-decoration: underline;
+  }
+}
 * {
   box-sizing: border-box;
 }
@@ -21,6 +33,13 @@ body {
   height: 100%;
   width: 1200px;
   margin: auto;
+}
+
+#session {
+  text-align: right;
+  background-color: white;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e1e1e3;
 }
 
 #header {
@@ -60,12 +79,14 @@ body {
 }
 
 #main {
-  padding: 10px;
-  background: white;
+  background: #F7F7F8;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   height: 100%;
   margin-left: 20%;
-  overflow-y: scroll;
+  overflow-y: auto;
+  #content {
+    margin: 10px;
+  }
 }
 
 

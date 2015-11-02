@@ -1,1 +1,5 @@
+<% content_for :sidebar do %>
+  <h2>Environments</h2>
+  <%= render :partial => "tree", :locals => {:environments => @environments} %>
+<% end %>
 <h1>Home - index</h1>

@@ -1,36 +1,44 @@
-<header id="header">
-  <h1>Environment » <%= @environment.name %></h1>
-</header>
-<p><%= link_to 'Test API', "/api/variables/#{@environment.name}.json" %></p>
+<% content_for :sidebar do %>
+  <h2>Environments</h2>
+  <%= render :partial => "tree", :locals => {:environments => @environments} %>
+<% end %>
 
-<table id="env-vars">
-  <tr>
-    <th>Key</th>
-    <th>Value</th>
-    <th>Origin</th>
-    <th>Action</th>
-  </tr>
-  <% for var in @environment.inherited_variables %>
+<div id="content">
+  <h1>
+    <%= @environment.name %>
+  </h1>
+  <p>
+    <%= link_to 'Test API', "/api/variables/#{@environment.name}.json" %>
+  </p>
+  <table id="env-vars">
     <tr>
-      <td>
-        <input type="text" value="<%= var.key %>" name="key" />
-      </td>
-      <td>
-        <input type="text" value="<%= var.value %>" name="value" /></td>
-      </td>
-      <td><%= var.environment.name%></td>
-      <td>
-        <% if var.environment == @environment %>
-          <%= link_to 'Save', variable_path(var.id), {:class => 'save-variable'} %>
-        <% else %>
-          <%= form_tag('/variables', method: 'POST') do %>
-            <%= hidden_field_tag 'variable[key]', var.key %>
-            <%= hidden_field_tag 'variable[value]', var.value %>
-            <%= hidden_field_tag 'variable[environment_id]', @environment.id %>
-            <%= submit_tag('Override') %>
-          <% end %>
-        <% end %>
-      </td>
+      <th>Key</th>
+      <th>Value</th>
+      <th>Origin</th>
+      <th>Action</th>
     </tr>
-  <% end %>
-</table>
+    <% for var in @environment.inherited_variables %>
+      <tr>
+        <td>
+          <input type="text" value="<%= var.key %>" name="key" />
+        </td>
+        <td>
+          <input type="text" value="<%= var.value %>" name="value" /></td>
+        </td>
+        <td><%= var.environment.name%></td>
+        <td>
+          <% if var.environment == @environment %>
+            <%= link_to 'Save', variable_path(var.id), {:class => 'save-variable'} %>
+          <% else %>
+            <%= form_tag('/variables', method: 'POST') do %>
+              <%= hidden_field_tag 'variable[key]', var.key %>
+              <%= hidden_field_tag 'variable[value]', var.value %>
+              <%= hidden_field_tag 'variable[environment_id]', @environment.id %>
+              <%= submit_tag('Override') %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
