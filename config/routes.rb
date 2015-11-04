@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   root 'environments#index'
 
   resources :environments
-
   resources :variables
+
   namespace :api do
-    resources :variables
+    resources :environments
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
