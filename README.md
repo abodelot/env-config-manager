@@ -1,8 +1,12 @@
-# Env Config Manager
+# Varager
 
 Manage configuration variables for multiple environnements
 
-## How to deploy
+## How to initialize
+
+```
+rake db:create db:migrate db:seed
+```
 
 ## Tool stack
 
