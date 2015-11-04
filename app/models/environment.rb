@@ -6,9 +6,7 @@ class Environment < ActiveRecord::Base
   has_ancestry
   has_many :variables
 
-  scope :with_name, lambda { |name|
-    where(:name => name).first
-  }
+  scope :find_by_slug, -> (slug) { where(:name => slug).first }
 
   def create_var(key, value)
     v = Variable.create!(
@@ -30,4 +28,8 @@ class Environment < ActiveRecord::Base
     array.sort_by(&:key)
   end
 
+  # Generate urls with name instead of id
+  def to_param
+    name
+  end
 end

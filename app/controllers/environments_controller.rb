@@ -7,6 +7,6 @@ class EnvironmentsController < ApplicationController
 
   def show
     @environments = Environment.arrange
-    @environment = Environment.find(params[:id])
+    @environment = Environment.find_by_slug(params[:id])
   end
 end

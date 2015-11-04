@@ -1,6 +1,6 @@
 class Api::VariablesController < ApplicationController
   def show
-    env = Environment.where(:name => params[:id]).first
+    env = Environment.find_by_slug(params[:id])
     if env
       hash = {}
       env.inherited_variables.each do |var|
