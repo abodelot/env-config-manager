@@ -1,4 +1,4 @@
-class Api::EnvironmentsController < ApplicationController
+class Api::EnvironmentsController < Api::BaseController
 
   def index
     environments = Environment.all
@@ -7,28 +7,22 @@ class Api::EnvironmentsController < ApplicationController
 
   def update
     env = Environment.find_by_slug(params[:id])
-    api_response(:environment => env)
+
+    variables = params[:variables]
+    if !variables.is_a? Hash
+      api_response(:error => "Variables missing")
+    else
+      env.create_vars(variables)
+      api_response(:environment => env)
+    end
   end
 
   def show
     env = Environment.find_by_slug(params[:id])
     if env
-      hash = {}
-      env.inherited_variables.each do |var|
-        hash[var.key] = var.value
-      end
-      api_response(:config => hash)
+      api_response(:environment => env)
     else
       api_response(:error => "No env named #{params[:id]}")
-    end
-  end
-
-  protected
-
-  def api_response(data)
-    respond_to do |format|
-      format.json { render :json => data }
-      format.xml { render :xml => data }
     end
   end
 end
