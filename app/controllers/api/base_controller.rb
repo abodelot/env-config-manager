@@ -1,5 +1,12 @@
 class Api::BaseController < ApplicationController
 
+  # Catch exceptions and render error message
+  [
+    [ActiveRecord::RecordNotFound, -1],
+    [ArgumentError,                -2]
+  ].each do |klass, code|
+    rescue_from klass, :with => lambda { |arg| exception_handler(arg, code) }
+  end
 
   skip_before_filter :verify_authenticity_token
 
@@ -29,9 +36,16 @@ class Api::BaseController < ApplicationController
   protected
 
   def api_response(data)
+    data.merge!(:code => '1') if !data.key?(:code)
     respond_to do |format|
       format.json { render :json => data }
       format.xml { render :xml => data }
     end
+  end
+
+  private
+
+  def exception_handler(exception, code)
+    api_response(:message => "#{exception.message}", :code => code)
   end
 end

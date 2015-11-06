@@ -9,8 +9,10 @@ class Environment < ActiveRecord::Base
 # Methods
 # ------------------------------------------------------------------------------
 #
-  def self.find_by_slug(slug)
-    where(:name => slug).first
+  def self.find_by_slug!(slug)
+    where(:name => slug).first or raise(
+      ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{slug}")
+    )
   end
 
   def create_vars(hash)
