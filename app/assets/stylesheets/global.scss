@@ -7,6 +7,9 @@ $purple_light: #665194;
 $link_color: #79589f;
 $link_color_hover: #60467e;
 
+// Layout
+// -----------------------------------------------------------------------------
+
 html, body {
   height: 100%;
 }
@@ -84,6 +87,9 @@ a {
   height: 100%;
   margin-left: 20%;
   overflow-y: auto;
+  h1 {
+    text-shadow: 0 1px 0 white;
+  }
   #content {
     margin: 10px;
   }
