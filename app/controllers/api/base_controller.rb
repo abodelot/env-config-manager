@@ -1,14 +1,17 @@
 class Api::BaseController < ApplicationController
 
+  # API cannot rely on authenticity token
+
+  skip_before_filter :verify_authenticity_token
+
   # Catch exceptions and render error message
+
   [
     [ActiveRecord::RecordNotFound, -1],
     [ArgumentError,                -2]
   ].each do |klass, code|
     rescue_from klass, :with => lambda { |arg| exception_handler(arg, code) }
   end
-
-  skip_before_filter :verify_authenticity_token
 
   # Allow cross-domain request (CORS)
 

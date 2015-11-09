@@ -20,6 +20,18 @@ rake db:create db:migrate db:seed
 
 ## API
 
+### Sign-in
+
+```
+[POST] /users/sign_in.json
+{
+  user: {
+    email: 'user@domain.tld',
+    password: 'foobaz123'
+  }
+}
+```
+
 ### Get list of environments
 
 `[GET] /api/environments.json`
@@ -30,15 +42,12 @@ rake db:create db:migrate db:seed
 
 ### Update variables for a given environment
 
-`[PUT] /api/environments/#{name}.json`
-
-Payload:
-
 ```
+[PUT] /api/environments/#{name}.json
 {
-  "variables": {
-    "key_1": "value_1",
-    "key_2": "value_2"
+  variables: {
+    key_1: "value_1",
+    key_2: "value_2"
   }
 }
 ```

@@ -11,6 +11,7 @@ class Environment < ActiveRecord::Base
 #
   def self.find_by_slug!(slug)
     where(:name => slug).first or raise(
+      # Error message for `where().first!` is too low-level, use a custom one
       ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{slug}")
     )
   end
@@ -41,7 +42,7 @@ class Environment < ActiveRecord::Base
   end
 
   # Serialize variables in object
-  def as_json(options = nil)
+  def serializable_hash(options = {})
     hash = super(options)
     variables = {}
     inherited_variables.each do |var|
