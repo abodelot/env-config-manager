@@ -40,4 +40,6 @@
 
 `[GET] /api/users/.json`
 
+ - `string` *email*: Filter response on users with given email
+
 `[GET] /api/users/:id.json`

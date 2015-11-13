@@ -2,7 +2,7 @@ class Environment < ActiveRecord::Base
   include Filterable
   DEFAULT_NAME = 'default'
 
-  render_attrs [:id, :name, :config, :created_at, :updated_at]
+  render_attrs :id, :name, :config, :created_at, :updated_at
 
 # Associations
 # ------------------------------------------------------------------------------

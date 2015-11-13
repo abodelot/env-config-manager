@@ -11,19 +11,23 @@ module Filterable
   end
 
   module ClassMethods
-    def render_attrs(args)
+
+    # Generate options for the `serialize_options` method
+    def render_attrs(*args)
       self.serialize_options = {:only => [], :methods => args}
     end
 
-    def public_scope(name, s)
-      scope(name, s)
+    # Declare a scope and make it available through API
+    def public_scope(name, function)
+      scope(name, function)
       self.public_scopes.push(name)
     end
 
+    # Apply public scopes contained in params
     def filter!(params)
-      res = self.scoped
+      res = self.all
       params.each do |key, value|
-        if self.public_scopes.include?(key.so_sym)
+        if self.public_scopes.include?(key.to_sym)
           res = res.send(key, value)
         end
       end

@@ -2,7 +2,7 @@ class Api::EnvironmentsController < Api::BaseController
 
   # GET /api/environments
   def index
-    environments = Environment.all
+    environments = Environment.filter!(params)
     api_response(:environments => environments)
   end
 
