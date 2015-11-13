@@ -38,20 +38,25 @@ a {
   margin: auto;
 }
 
-#session {
-  text-align: right;
+header {
+
   background-color: white;
   padding: 8px 12px;
   border-bottom: 1px solid #e1e1e3;
-}
-
-#header {
-  height: 60px;
-  line-height: 60px;
-  h1 {
-    margin-top: 0;
+  #session {
+    float: right;
+  }
+  #menu {
+    a:hover {
+      text-decoration: none;
+      border-bottom: 2px solid $link_color_hover;
+    }
+    a.active {
+      border-bottom: 2px solid $link_color;
+    }
   }
 }
+
 #sidebar {
   color: #f0f0f0;
   float: left;
@@ -92,6 +97,17 @@ a {
   }
   #content {
     margin: 10px;
+    p.message {
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+      &.alert {
+        background: #f66;
+      }
+      &.notice {
+        background: #42b983;
+      }
+    }
   }
 }
 

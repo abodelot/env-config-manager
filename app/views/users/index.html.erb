@@ -1,0 +1,11 @@
+<h1>Users</h1>
+
+<table>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.email %></td>
+      <td><%= user.created_at %></td>
+    </tr>
+  <% end %>
+</table>

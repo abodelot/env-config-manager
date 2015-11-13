@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'environments#index'
 
   resources :environments
+  resources :users
   resources :variables
 
   namespace :api do

@@ -1,5 +1,7 @@
 class Environment < ActiveRecord::Base
 
+  DEFAULT_NAME = 'default'
+
 # Associations
 # ------------------------------------------------------------------------------
 #
