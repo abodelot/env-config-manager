@@ -29,7 +29,7 @@
 ```
 [PUT] /api/environments/:name.json
 {
-  variables: {
+  config: {
     key_1: "value_1",
     key_2: "value_2"
   }

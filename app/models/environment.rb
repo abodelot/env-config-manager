@@ -1,6 +1,8 @@
 class Environment < ActiveRecord::Base
-
+  include Filterable
   DEFAULT_NAME = 'default'
+
+  render_attrs [:id, :name, :config, :created_at, :updated_at]
 
 # Associations
 # ------------------------------------------------------------------------------
@@ -43,14 +45,12 @@ class Environment < ActiveRecord::Base
     name
   end
 
-  # Serialize variables in object
-  def serializable_hash(options = {})
-    hash = super(options)
-    variables = {}
+  # Compact version of the relation inherited_variables
+  def config
+    hash = {}
     inherited_variables.each do |var|
-      variables[var.key] = var.value
+      hash[var.key] = var.value
     end
-    hash['variables'] = variables
     hash
   end
 end

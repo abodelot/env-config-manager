@@ -15,7 +15,7 @@ class Api::EnvironmentsController < Api::BaseController
   # PUT /api/environments/:slug
   def update
     env = Environment.find_by_slug!(params[:id])
-    variables = params[:variables]
+    variables = params[:config]
     if !variables.is_a? Hash
       raise ArgumentError.new('Variables are missing')
     end
