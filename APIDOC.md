@@ -14,7 +14,21 @@
 }
 ```
 
+You must include the user email and the returned `authentication_token` in your
+request header to perform API calls as an authenticated user. A user cannot open
+simultaneous sessions, opening a new session will invalidate previously created
+authentication tokens. Example:
+
+```ruby
+request = Net::HTTP::Get.new(url)
+request.add_field('X-User-Email', email)
+request.add_field('X-User-Token', authentication_token)
+```
+
 ## Environments
+
+Note: `Environment` objects are identified by their `name` attribute, not by
+their `id`.
 
 ### Get list of environments
 
@@ -35,6 +49,10 @@
   }
 }
 ```
+
+### Delete a given environment and its variables
+
+[DELETE] /api/environments/:name.json
 
 ## Users
 

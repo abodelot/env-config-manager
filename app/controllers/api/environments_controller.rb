@@ -12,6 +12,10 @@ class Api::EnvironmentsController < Api::BaseController
     api_response(:environment => env)
   end
 
+  # POST /api/environments
+  def create
+  end
+
   # PUT /api/environments/:slug
   def update
     env = Environment.find_by_slug!(params[:id])
@@ -21,5 +25,13 @@ class Api::EnvironmentsController < Api::BaseController
     end
     env.create_vars(variables)
     api_response(:environment => env)
+  end
+
+  # DELETE /api/environments/:slug
+  def destroy
+    env = Environment.find_by_slug!(params[:id])
+    env.destroy!
+
+    head :ok
   end
 end

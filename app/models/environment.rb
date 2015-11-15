@@ -8,7 +8,7 @@ class Environment < ActiveRecord::Base
 # ------------------------------------------------------------------------------
 #
   has_ancestry
-  has_many :variables
+  has_many :variables, :dependent => :destroy
 
 # Methods
 # ------------------------------------------------------------------------------

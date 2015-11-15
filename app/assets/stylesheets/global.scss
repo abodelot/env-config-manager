@@ -18,6 +18,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   background: $purple;
+  background: linear-gradient(to bottom, #664a86, #534292);
   color: #333;
 }
 
@@ -39,7 +40,6 @@ a {
 }
 
 header {
-
   background-color: white;
   padding: 8px 12px;
   border-bottom: 1px solid #e1e1e3;

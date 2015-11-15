@@ -1,13 +1,12 @@
-// Place all the styles related to the environments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 
 table#env-vars {
-//  table-layout: fixed;
-//  width: 100%;
+  width: 100%;
+  th {
+    text-align: left;
+  }
   td {
     input[type=text] {
-      width: 320px;
+      width: 100%;
       padding: 4px 8px;
       border: 1px solid #ddd;
       border-radius: 2px;

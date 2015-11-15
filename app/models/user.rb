@@ -21,10 +21,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def serializable_hash(options = {})
-    super(:except => :authentication_token)
-  end
-
   private
 
   def generate_authentication_token
