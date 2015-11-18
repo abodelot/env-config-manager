@@ -9,6 +9,14 @@ class Environment < ActiveRecord::Base
 #
   has_ancestry
   has_many :variables, :dependent => :destroy
+  has_and_belongs_to_many :users
+
+# Scopes
+# ------------------------------------------------------------------------------
+#
+  public_scope :user_id, -> (arg) {
+    joins(:users).where(:users => {:id => arg})
+  }
 
 # Methods
 # ------------------------------------------------------------------------------

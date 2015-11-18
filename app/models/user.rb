@@ -10,6 +10,16 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+
+  has_and_belongs_to_many :environments
+
+# Scopes
+# ------------------------------------------------------------------------------
+#
+  public_scope :env_name, -> (arg) {
+    joins(:environments).where(:environments => {:name => arg})
+  }
+
   public_scope :email, -> (arg) { where(:email => arg) }
 
 # Methods

@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   root 'environments#index'
 
-  resources :environments
+  resources :environments do
+    member do
+      get 'users'
+    end
+  end
   resources :users
   resources :variables
 

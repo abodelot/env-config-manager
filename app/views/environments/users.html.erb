@@ -1,0 +1,16 @@
+<% content_for :sidebar do %>
+  <h2>Environments</h2>
+  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+<% end %>
+
+<h1>Users for environment <%= @environment.name %></h1>
+
+<table>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.email %></td>
+      <td><%= human_date(user.created_at) %></td>
+    </tr>
+  <% end %>
+</table>

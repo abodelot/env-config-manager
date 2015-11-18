@@ -30,15 +30,19 @@ request.add_field('X-User-Token', authentication_token)
 Note: `Environment` objects are identified by their `name` attribute, not by
 their `id`.
 
-### Get list of environments
+### Filters
+
+ - `int` `user_id`: Filter on environments associated to given user id
+
+### Get all environments
 
 `[GET] /api/environments.json`
 
-### Get config for a given environment
+### Get environment
 
 `[GET] /api/environments/:name.json`
 
-### Update variables for a given environment
+### Update config for a given environment
 
 ```
 [PUT] /api/environments/:name.json
@@ -50,14 +54,24 @@ their `id`.
 }
 ```
 
-### Delete a given environment and its variables
+### Delete environment
 
-[DELETE] /api/environments/:name.json
+`[DELETE] /api/environments/:name.json`
+
+- Associated variables will be deleted
 
 ## Users
 
+### Filters
+
+ - `string` *email*: Filter on users with given email
+ - `string` *env_name*: Filter on users associated to given environment name
+
+### Get all users
+
 `[GET] /api/users/.json`
 
- - `string` *email*: Filter response on users with given email
+### Get user
 
 `[GET] /api/users/:id.json`
+

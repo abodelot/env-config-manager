@@ -1,6 +1,6 @@
 <% content_for :sidebar do %>
   <h2>Environments</h2>
-  <%= render :partial => "tree", :locals => {:environments => @environments} %>
+  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
 <% end %>
 
 <h1>
@@ -8,7 +8,9 @@
 </h1>
 <p>
   <%= link_to 'Test API', "/api/environments/#{@environment.name}.json" %>
+  <%= link_to 'Access', environment_path(@environment) + '/' + 'users' %>
 </p>
+
 <table id="env-vars">
   <tr>
     <th>Key</th>
