@@ -17,6 +17,19 @@ class EnvironmentsController < ApplicationController
     @users = @environment.users
   end
 
+  # PATCH /environments/:slug/add_user
+  def add_user
+    @environment = Environment.find_by_slug!(params[:id])
+    user = User.where(:email => params[:email]).first
+    if !user
+      flash[:alert] = "No user for email #{params[:email]}"
+    else
+      @environment.users << user
+      flash[:notice] = "Email #{params[:email]} added"
+    end
+    redirect_to :action => :users, :id => @environment.name
+  end
+
   private
 
   def build_treeview

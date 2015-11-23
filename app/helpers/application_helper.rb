@@ -1,7 +1,9 @@
 module ApplicationHelper
-  def menu_link(name, controller)
-    css = controller.to_s == params[:controller] ? 'active' : ''
-    link_to(name, controller, :class => css)
+  def menu_link(name, target, icon)
+    css = target.to_s == request.original_fullpath ? 'active' : ''
+    link_to(target, :class => css) do
+      "<i class='fa fa-#{icon}'></i> #{name}".html_safe
+    end
   end
 
   def human_date(datetime)

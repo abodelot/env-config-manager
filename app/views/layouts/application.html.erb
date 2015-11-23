@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Varager</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -23,11 +24,8 @@
             <%= link_to('Register', new_user_registration_path)  %>
           <% end %>
         </div>
-        <div id="menu">
-          <%= menu_link 'Environments', :environments %>
-          <%= menu_link 'Users', :users %>
-        </div>
       </header>
+      <%= yield(:menu) %>
       <div id="content">
         <% if notice %>
           <p class="message notice"><%= notice %></p>

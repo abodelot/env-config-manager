@@ -2,13 +2,13 @@ class Api::EnvironmentsController < Api::BaseController
 
   # GET /api/environments
   def index
-    environments = Environment.filter!(params)
+    environments = user_environments
     api_response(:environments => environments)
   end
 
   # GET /api/environments/:slug
   def show
-    env = Environment.find_by_slug!(params[:id])
+    env = user_environments.find_by_slug!(params[:id])
     api_response(:environment => env)
   end
 
@@ -18,7 +18,7 @@ class Api::EnvironmentsController < Api::BaseController
 
   # PUT /api/environments/:slug
   def update
-    env = Environment.find_by_slug!(params[:id])
+    env = user_environments.find_by_slug!(params[:id])
     variables = params[:config]
     if !variables.is_a? Hash
       raise ArgumentError.new('Variables are missing')
@@ -29,9 +29,15 @@ class Api::EnvironmentsController < Api::BaseController
 
   # DELETE /api/environments/:slug
   def destroy
-    env = Environment.find_by_slug!(params[:id])
+    env = user_environments.find_by_slug!(params[:id])
     env.destroy!
 
     head :ok
+  end
+
+  private
+
+  def user_environments
+    Environment.user_id(current_user.id)
   end
 end

@@ -32,8 +32,7 @@ ActiveRecord::Schema.define(version: 20151117171919) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "environments_users", ["environment_id"], name: "index_environments_users_on_environment_id", using: :btree
-  add_index "environments_users", ["user_id"], name: "index_environments_users_on_user_id", using: :btree
+  add_index "environments_users", ["user_id", "environment_id"], name: "index_environments_users_on_user_id_and_environment_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

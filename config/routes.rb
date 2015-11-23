@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :environments do
     member do
       get 'users'
+      patch 'add_user'
     end
   end
   resources :users

@@ -44,16 +44,7 @@ header {
   padding: 8px 12px;
   border-bottom: 1px solid #e1e1e3;
   #session {
-    float: right;
-  }
-  #menu {
-    a:hover {
-      text-decoration: none;
-      border-bottom: 2px solid $link_color_hover;
-    }
-    a.active {
-      border-bottom: 2px solid $link_color;
-    }
+    text-align: right;
   }
 }
 
@@ -118,4 +109,29 @@ header {
 div.ui-pnotify {
   background: rgba(0, 0, 0, 0.5);
   color: white;
+}
+
+.menu {
+  background: white;
+  border-bottom: 1px solid #e1e1e3;
+  text-align: center;
+  a {
+    padding: 10px 6px;
+    margin: 0 6px;
+    display: inline-block;
+    color: #7D7D8E;
+    border-bottom: 2px solid white;
+    transition: all 0.2s;
+    i.fa {
+      margin-right: 4px;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #7D7D8E;
+  }
+  a.active {
+    color: $link_color;
+    border-bottom: 2px solid $link_color;
+  }
 }

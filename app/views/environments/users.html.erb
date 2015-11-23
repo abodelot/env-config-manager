@@ -3,6 +3,11 @@
   <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
 <% end %>
 
+
+<% content_for :menu do %>
+  <%= render :partial => 'menu' %>
+<% end %>
+
 <h1>Users for environment <%= @environment.name %></h1>
 
 <table>
@@ -14,3 +19,8 @@
     </tr>
   <% end %>
 </table>
+
+<%= form_tag(environment_path(@environment) + '/add_user', method: 'PATCH') do %>
+  <%= email_field_tag(:email, :email) %>
+  <%= submit_tag('Add user', {:class => 'button'}) %>
+<% end %>
