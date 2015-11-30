@@ -28,3 +28,12 @@ end
 # Create some environments
 create_app('tf1', ['dev', 'qa', 'staging', 'prod'])
 create_app('elisa', ['dev', 'staging', 'preprod', 'prod'])
+
+# Create admin account
+admin = User.new
+admin.email = 'admin@email.com'
+admin.password = 'adminvarager'
+admin.password_confirmation = 'adminvarager'
+admin.save!
+
+admin.environments = Environment.all
