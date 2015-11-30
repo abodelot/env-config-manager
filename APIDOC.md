@@ -32,46 +32,57 @@ their `id`.
 
 ### Filters
 
- - `int` `user_id`: Filter on environments associated to given user id
+- `int` `user_id`: Filter on environments associated to given user id
 
-### Get all environments
+### Methods
 
-`[GET] /api/environments.json`
+- Get all environments
 
-### Get environment
+    `[GET] /api/environments.json`
 
-`[GET] /api/environments/:name.json`
+- Get environment
 
-### Update config for a given environment
+    `[GET] /api/environments/:name.json`
 
-```
-[PUT] /api/environments/:name.json
-{
-  config: {
-    key_1: "value_1",
-    key_2: "value_2"
-  }
-}
-```
+- Update config for a given environment
 
-### Delete environment
+    ```
+    [PUT] /api/environments/:name.json
+    {
+        config: {
+            key_1: "value_1",
+            key_2: "value_2"
+        }
+    }
+    ```
 
-`[DELETE] /api/environments/:name.json`
+- Delete environment
 
-- Associated variables will be deleted
+    `[DELETE] /api/environments/:name.json`
 
-## Users
+    - Associated variables will be deleted
+    - Return no content
+
+Users
+-----
+
+### Response fields
+
+- `int` `id`
+- `string` `email`
 
 ### Filters
 
- - `string` *email*: Filter on users with given email
- - `string` *env_name*: Filter on users associated to given environment name
+- `string` `email`: Filter on users with given email
+- `string` `env_name`: Filter on users associated to given environment name
 
-### Get all users
+### Methods
 
-`[GET] /api/users/.json`
+- Get all users
 
-### Get user
+    `[GET] /api/users.json`
 
-`[GET] /api/users/:id.json`
+- Get user
+
+    `[GET] /api/users/:id.json`
 

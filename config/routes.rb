@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :environments
     resources :users
+    resource :version, :controller => 'version'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
