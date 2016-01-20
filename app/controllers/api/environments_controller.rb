@@ -40,4 +40,5 @@ class Api::EnvironmentsController < Api::BaseController
   def user_environments
     Environment.user_id(current_user.id)
   end
+
 end

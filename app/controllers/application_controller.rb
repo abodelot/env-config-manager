@@ -13,13 +13,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_from_token!
     # Extract credentials from headers
-    user_email = request.headers['x-user-email']
-    user_token = request.headers['x-user-token']
-
-    user = user_email && User.find_by_email(user_email)
-
+    user_token = request.headers['Authorization']
+    user = User.find_by(authentication_token: user_token)
     # Compare token from database with token from params
-    if user && Devise.secure_compare(user.authentication_token, user_token)
+    if user
       res = sign_in(user, :store => false)
     end
   end

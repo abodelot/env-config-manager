@@ -62,8 +62,7 @@ class VaragerApi
   end
 
   def send(request)
-    request.add_field('X-User-Email', @email)
-    request.add_field('X-User-Token', @authentication_token)
+    request.add_field('Authorization', @authentication_token)
     @http.request(request)
   end
 
@@ -116,4 +115,3 @@ while true
     break
   end
 end
-
