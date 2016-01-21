@@ -14,15 +14,29 @@
 }
 ```
 
-You must include the user email and the returned `authentication_token` in your
-request header to perform API calls as an authenticated user. A user cannot open
-simultaneous sessions, opening a new session will invalidate previously created
-authentication tokens. Example:
+Example response:
+
+```js
+{
+  "user": {
+    "id": 2,
+    "email": "user@domain.tld",
+    "created_at": "2015-06-20T00:00:00.000Z",
+    "updated_at": "2016-01-21T11:32:26.769Z"
+  },
+  "status": "ok",
+  "authentication_token":"1kJGc4tV15g-Wn9McwZp"
+}
+```
+
+You must include the returned `authentication_token` in the `Authorization`
+request header to perform API calls as an authenticated user.
+A user cannot open simultaneous sessions, opening a new session will invalidate
+previously created authentication tokens. Example:
 
 ```ruby
 request = Net::HTTP::Get.new(url)
-request.add_field('X-User-Email', email)
-request.add_field('X-User-Token', authentication_token)
+request.add_field('Authorization', authentication_token)
 ```
 
 ## Environments
