@@ -1,0 +1,24 @@
+<% content_for :sidebar do %>
+  <h2>Environments</h2>
+  <%= render :partial => "tree", :locals => {:environments => @treeview_root} %>
+<% end %>
+
+<h1>Create a new environment</h1>
+
+<% if @environment.parent %>
+  <p>This environment will be created as a child of
+  <%= link_to @environment.parent.name, "/environments/#{@environment.parent.name}" %></p>
+<% else %>
+  <p>This environment will be created as root</p>
+<% end %>
+
+<%= form_for(@environment, html: {class: 'form'}) do |f| %>
+  <%= f.hidden_field :parent_id %>
+  <div class="row">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="row">
+    <%= f.submit('Create', class: 'button') %>
+  </div>
+<% end %>

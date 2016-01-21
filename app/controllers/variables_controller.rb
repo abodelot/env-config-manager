@@ -13,7 +13,6 @@ class VariablesController < ApplicationController
     end
   end
 
-
   private
 
   def variable_params

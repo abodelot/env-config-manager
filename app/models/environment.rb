@@ -11,6 +11,11 @@ class Environment < ActiveRecord::Base
   has_many :variables, :dependent => :destroy
   has_and_belongs_to_many :users
 
+# Validations
+# ------------------------------------------------------------------------------
+#
+  validates :name, :presence => true
+
 # Scopes
 # ------------------------------------------------------------------------------
 #

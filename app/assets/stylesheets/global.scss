@@ -102,6 +102,18 @@ header {
   }
 }
 
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    text-align: left;
+    padding: 6px;
+  }
+  td {
+    border-top: 1px solid #ccc;
+    padding: 6px;
+  }
+}
 
 // Notifications
 // -----------------------------------------------------------------------------

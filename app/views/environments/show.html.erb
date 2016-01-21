@@ -1,8 +1,6 @@
 <% content_for :sidebar do %>
-  <h2>Environments</h2>
-  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+  <%= render partial: 'sidebar', locals: {environments: @treeview_root} %>
 <% end %>
-
 
 <% content_for :menu do %>
   <%= render :partial => 'menu' %>
@@ -41,3 +39,6 @@
     </tr>
   <% end %>
 </table>
+<p>
+  Create a new <%= link_to 'child environment', new_env_environment_path(@environment) %>
+</p>

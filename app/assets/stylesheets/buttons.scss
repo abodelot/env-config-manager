@@ -5,10 +5,11 @@ $button_bg: #00a1df;
 
 .button {
   position: relative;
+  vertical-align: top;
   display: inline-block;
   font-family: inherit;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 26px;
   padding: 0 10px;
   color: white;
   background: $button_bg;

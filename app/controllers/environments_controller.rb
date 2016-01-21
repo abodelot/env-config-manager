@@ -30,10 +30,25 @@ class EnvironmentsController < ApplicationController
     redirect_to :action => :users, :id => @environment.name
   end
 
+  def new
+    @environment = Environment.new
+    @environment.parent_id = Environment.where(:name => params[:id]).first
+  end
+
+  def create
+    environment = Environment.create!(environment_params)
+    environment.users << current_user
+    redirect_to environment
+  end
+
   private
 
   def build_treeview
     # Get all environments in a tree structure
     @treeview_root = Environment.arrange
+  end
+
+  def environment_params
+    params.require(:environment).permit(:name, :parent_id)
   end
 end
