@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Variables</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+      <th>Directory</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @variables.each do |variable| %>
+      <tr>
+        <td><%= variable.key %></td>
+        <td><%= variable.value %></td>
+        <td><%= variable.environment.name %></td>
+        <td><%= link_to 'Show', environment_variable_path(@environment, variable) %></td>
+        <td><%= link_to 'Edit', edit_environment_variable_path(@environment, variable) %></td>
+        <td><%= link_to 'Destroy', environment_variable_path(@environment, variable), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Variable', new_environment_variable_path %>

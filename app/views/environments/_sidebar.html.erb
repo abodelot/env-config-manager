@@ -1,6 +1,5 @@
 <h2>Environments</h2>
-<%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+<%= render :partial => 'environments/tree', :locals => {:environments => @treeview_root} %>
 <%= link_to(new_environment_path) do %>
   <i class="fa fa-plus"></i> New environment
 <% end %>
-

@@ -12,13 +12,6 @@
   <p>This environment will be created as root</p>
 <% end %>
 
-<%= form_for(@environment, html: {class: 'form'}) do |f| %>
-  <%= f.hidden_field :parent_id %>
-  <div class="row">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="row">
-    <%= f.submit('Create', class: 'button') %>
-  </div>
-<% end %>
+<%= render 'form' %>
+
+<%= link_to 'Back', @environment %>

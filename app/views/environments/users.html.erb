@@ -1,16 +1,16 @@
 <% content_for :sidebar do %>
-  <%= render partial: 'sidebar', locals: {environments: @treeview_root} %>
+  <%= render partial: 'environments/sidebar', locals: {environments: @treeview_root} %>
 <% end %>
 
 
 <% content_for :menu do %>
-  <%= render :partial => 'menu' %>
+  <%= render :partial => 'environments/menu' %>
 <% end %>
 
 <h1>Users for environment <%= @environment.name %></h1>
 
-<%= form_tag(environment_path(@environment) + '/add_user', method: 'PATCH', class: 'form') do %>
-  <%= email_field_tag(:email, '', placeholder: 'user email') %>
+<%= form_tag "/environments/#{@environment.id}/adduser", method: 'POST', class: 'form' do %>
+<%= email_field_tag(:email, '', placeholder: 'user email') %>
   <%= submit_tag('Add user', {:class => 'button'}) %>
 <% end %>
 
@@ -19,12 +19,14 @@
     <th>Id</th>
     <th>Email</th>
     <th>Created at</th>
+    <th>Action</th>
   </tr>
   <% for user in @users %>
     <tr>
       <td><%= user.id %></td>
       <td><%= user.email %></td>
       <td><%= human_date(user.created_at) %></td>
+      <td><%= link_to 'Destroy', deluser_environment_path({id: @environment.id, email: user.email}),  method: :delete, class: 'button', data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
