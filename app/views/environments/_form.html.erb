@@ -18,6 +18,6 @@
     <%= f.text_field :parent_id, value: @environment.parent.try(:name) %>
   </div>
   <div class="row">
-    <%= f.submit('Create', class: 'button') %>
+    <%= f.submit(:class => 'button') %>
   </div>
 <% end %>

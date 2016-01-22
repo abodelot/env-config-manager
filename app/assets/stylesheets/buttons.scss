@@ -30,4 +30,8 @@ $button_bg: #00a1df;
   &:focus {
     outline: none;
   }
+
+  &.danger {
+    background: #ef4020;
+  }
 }

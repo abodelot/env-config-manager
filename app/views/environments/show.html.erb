@@ -1,13 +1,11 @@
 <% content_for :sidebar do %>
-  <h2>Environments</h2>
-  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
-  <%= link_to 'New Environment', new_environment_path %>
+  <%= render :partial => 'environments/sidebar', :locals => {:environments => @treeview_root} %>
 <% end %>
 
 <p id="notice"><%= notice %></p>
 
 <% content_for :menu do %>
-  <%= render :partial => 'menu' %>
+  <%= render :partial => 'environments/menu' %>
 <% end %>
 
 <h1>
@@ -16,10 +14,6 @@
 <p>
   Create a new <%= link_to 'child environment', new_environment_path({parent_id: @environment.id}) %>
 </p>
-
-<%= link_to 'Edit', edit_environment_path(@environment) %> |
-<%= link_to 'Destroy', @environment, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', environments_path %>
 
 <table id="env-vars">
   <tr>
@@ -57,7 +51,6 @@
 </table>
 <p>
   <%= link_to(new_environment_variable_path(@environment)) do %>
-  <i class="fa fa-plus"></i> New variable
+    <i class="fa fa-plus"></i> New variable
   <% end %>
-
 </p>

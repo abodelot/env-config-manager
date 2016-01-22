@@ -1,6 +1,14 @@
-<h1>Editing Directory</h1>
+<% content_for :sidebar do %>
+  <%= render :partial => 'environments/sidebar', :locals => {:environments => @treeview_root} %>
+<% end %>
 
+<% content_for :menu do %>
+  <%= render :partial => 'environments/menu' %>
+<% end %>
+
+<h1>Editing Environment</h1>
 <%= render 'form' %>
 
-<%= link_to 'Show', @environment %> |
-<%= link_to 'Back', environments_path %>
+<p>
+  <%= link_to 'Delete environment', @environment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button danger' %>
+</p>

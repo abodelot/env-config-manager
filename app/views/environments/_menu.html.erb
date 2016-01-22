@@ -1,4 +1,5 @@
 <div class="menu">
-  <%= menu_link 'Config', environment_path(@environment), 'cogs' %>
+  <%= menu_link 'Variables', environment_path(@environment), 'cogs' %>
   <%= menu_link 'Access', environment_path(@environment) + '/' + 'users', 'users' %>
+  <%= menu_link 'Settings', edit_environment_path(@environment), 'wrench' %>
 </div>
