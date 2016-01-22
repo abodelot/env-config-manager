@@ -19,7 +19,7 @@ class Environment < ActiveRecord::Base
     self.where(id: val.to_i).first or self.find_by(name: val)
   end
 
-  def create_vars(hash)
+  def create_vars(hash={})
     hash.each do |key, value|
       var = Variable.where(:environment => self, :key => key).first_or_initialize
       var.value = value

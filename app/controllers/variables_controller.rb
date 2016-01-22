@@ -22,6 +22,7 @@ class VariablesController < ApplicationController
   def edit
   end
 
+
   # POST /variables
   # POST /variables.json
   def create

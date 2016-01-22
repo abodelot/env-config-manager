@@ -1,5 +1,5 @@
 class EnvironmentsController < ApplicationController
-  before_action :set_environment, only: [:show, :edit, :update, :destroy, :adduser, :deluser]
+  before_action :set_environment, except: [:index, :new, :create]
   before_action :set_treeview
 
   # GET /environments
@@ -65,6 +65,14 @@ class EnvironmentsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @environment.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def addvars
+    @environment.create_vars(params[:vars])
+    respond_to do |format|
+      format.html { redirect_to (environment_path(@environment)), notice: 'Variables were successfully created.' }
+      format.json { render :show, status: :created, location: @environment }
     end
   end
 

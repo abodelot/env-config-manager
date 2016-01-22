@@ -25,7 +25,9 @@ class UsersController < ApplicationController
 
   private
   def set_environment
-    @environment = Environment.find_by_name_or_id(params[:environment_id])
+    if params.key?(:environment_id)
+      @environment = Environment.find_by_name_or_id!(params[:environment_id])
+    end
   end
 
   def set_treeview
