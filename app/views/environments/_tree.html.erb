@@ -2,7 +2,7 @@
   <% environments.sort_by { |k, v| k.name }.each do |k, v| %>
     <li>
       <%= link_to k.name, environment_path(k), :class => (@environment == k ? 'current' : '') %>
-      <%= render :partial => 'tree', :locals => {:environments => v} %>
+      <%= render :partial => 'environments/tree', :locals => {:environments => v} %>
     </li>
-  <% end %>
+    <% end %>
 </ul>

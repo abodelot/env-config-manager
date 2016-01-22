@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
-  # For APIs, use :null_session instead.
+  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-
   # Token authentication
   before_action :authenticate_user_from_token!
 
@@ -20,4 +19,5 @@ class ApplicationController < ActionController::Base
       res = sign_in(user, :store => false)
     end
   end
+
 end

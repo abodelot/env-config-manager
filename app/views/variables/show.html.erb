@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Variable:</strong>
+  <%= @variable.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @variable.value %>
+</p>
+
+<p>
+  <strong>Directory:</strong>
+  <%= @variable.environment.name %>
+</p>
+
+<%= link_to 'Edit', edit_environment_variable_path(@environment, @variable) %> |
+<%= link_to 'Back', environment_variables_path %>

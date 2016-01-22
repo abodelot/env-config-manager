@@ -1,39 +1,25 @@
 class Environment < ActiveRecord::Base
   include Filterable
-  DEFAULT_NAME = 'default'
+  DEFAULT_NAME = 'root'
 
-  render_attrs :id, :name, :config, :created_at, :updated_at
+  render_attrs :id, :name, :vars, :created_at, :updated_at
 
-# Associations
-# ------------------------------------------------------------------------------
-#
   has_ancestry
   has_many :variables, :dependent => :destroy
   has_and_belongs_to_many :users
 
-# Validations
-# ------------------------------------------------------------------------------
-#
   validates :name, :presence => true
+  public_scope :user_id, -> (arg) {joins(:users).where(:users => {:id => arg})}
 
-# Scopes
-# ------------------------------------------------------------------------------
-#
-  public_scope :user_id, -> (arg) {
-    joins(:users).where(:users => {:id => arg})
-  }
-
-# Methods
-# ------------------------------------------------------------------------------
-#
-  def self.find_by_slug!(slug)
-    where(:name => slug).first or raise(
-      # Error message for `where().first!` is too low-level, use a custom one
-      ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{slug}")
-    )
+  def self.find_by_name_or_id!(val)
+    self.find_by_name_or_id(val) or raise(ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{val}"))
   end
 
-  def create_vars(hash)
+  def self.find_by_name_or_id(val)
+    self.where(id: val.to_i).first or self.find_by(name: val)
+  end
+
+  def create_vars(hash={})
     hash.each do |key, value|
       var = Variable.where(:environment => self, :key => key).first_or_initialize
       var.value = value
@@ -41,29 +27,35 @@ class Environment < ActiveRecord::Base
     end
   end
 
-  def inherited_variables(array = self.variables.to_a)
-    if !root?
-      parent.variables.each do |var|
-        if !array.detect { |i| i.key == var.key }
-          array << var
+  def inherited_variables(as_hash=false)
+    hash = {}
+    array = []
+    variables.all.each{|kv| hash[kv.key] = kv.value}
+    array += variables
+    p = self.parent
+    while !p.nil?
+      p.variables.each do |kv|
+        if !hash.has_key?(kv.key)
+          hash[kv.key] = kv.value
+          array << kv
         end
       end
-      parent.inherited_variables(array)
+      p = p.parent
     end
-    array.sort_by(&:key)
+    if as_hash
+      return hash
+    else
+      return array
+    end
   end
 
-  # Generate urls with name instead of id
+  def vars
+    inherited_variables(true)
+  end
+
   def to_param
     name
   end
 
-  # Compact version of the relation inherited_variables
-  def config
-    hash = {}
-    inherited_variables.each do |var|
-      hash[var.key] = var.value
-    end
-    hash
-  end
+
 end

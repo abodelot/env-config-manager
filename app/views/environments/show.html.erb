@@ -1,13 +1,27 @@
 <% content_for :sidebar do %>
-  <%= render partial: 'sidebar', locals: {environments: @treeview_root} %>
-<% end %>
+<h2>Environments</h2>
+<% puts @environments.all %>
+<%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+<%= link_to 'New Environment', new_environment_path %>
+  <% end %>
+
+<p id="notice"><%= notice %></p>
 
 <% content_for :menu do %>
   <%= render :partial => 'menu' %>
 <% end %>
+
 <h1>
   <%= @environment.name %>
 </h1>
+<p>
+  Create a new <%= link_to 'child environment', new_environment_path({parent_id: @environment.id}) %>
+</p>
+
+<%= link_to 'Edit', edit_environment_path(@environment) %> |
+<%= link_to 'Destroy', @environment, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', environments_path %>
+
 <table id="env-vars">
   <tr>
     <th>Key</th>
@@ -24,21 +38,27 @@
         <input type="text" value="<%= var.value %>" name="value" /></td>
       </td>
       <td><%= var.environment.name%></td>
-      <td>
-        <% if var.environment == @environment %>
-          <%= link_to 'Save', variable_path(var.id), {:class => 'button save-variable'} %>
+<td>
+  <ul>
+      <li>  <% if var.environment == @environment %>
+          <%= link_to 'Save', environment_variable_path(@environment, var), {:class => 'button save-variable'} %>
         <% else %>
-          <%= form_tag('/variables', method: 'POST') do %>
+          <%= form_tag "/environments/#{@environment.name}/variables", method: 'POST' do %>
             <%= hidden_field_tag 'variable[key]', var.key %>
             <%= hidden_field_tag 'variable[value]', var.value %>
             <%= hidden_field_tag 'variable[environment_id]', @environment.id %>
             <%= submit_tag('Override', {:class => 'button'}) %>
           <% end %>
-        <% end %>
+          <% end %>
+      </li>
+      <li><%= link_to 'destroy', environment_variable_path(@environment, var), method: :delete, class: 'button', data: { confirm: 'Are you sure?' } %></li>
       </td>
     </tr>
   <% end %>
 </table>
 <p>
-  Create a new <%= link_to 'child environment', new_env_environment_path(@environment) %>
+  <%= link_to(new_environment_variable_path(@environment)) do %>
+  <i class="fa fa-plus"></i> New variable
+  <% end %>
+
 </p>

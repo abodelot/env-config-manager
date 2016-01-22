@@ -1,5 +1,38 @@
+
 <% content_for :sidebar do %>
-  <h2>Environments</h2>
-  <%= render :partial => "tree", :locals => {:environments => @environments} %>
+<h2>Directories</h2>
+<% puts @environments.all %>
+  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
 <% end %>
-<h1>Home - index</h1>
+<p id="notice"><%= notice %></p>
+
+
+<h1>Listing Directories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Ancestry</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @environments.each do |environment| %>
+    <tr>
+      <td><%= environment.id %></td>
+        <td><%= environment.name %></td>
+        <td><%= environment.ancestry.nil? ? '' : Directory.find(environment.ancestry).name %></td>
+        <td><%= link_to 'Show', environment %></td>
+        <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
+        <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Directory', new_environment_path %>
