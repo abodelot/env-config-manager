@@ -112,6 +112,9 @@ table.data-table {
   td {
     border-top: 1px solid #ccc;
     padding: 6px;
+    &.actions {
+      text-align: right;
+    }
   }
 }
 

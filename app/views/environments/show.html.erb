@@ -1,9 +1,8 @@
 <% content_for :sidebar do %>
-<h2>Environments</h2>
-<% puts @environments.all %>
-<%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
-<%= link_to 'New Environment', new_environment_path %>
-  <% end %>
+  <h2>Environments</h2>
+  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+  <%= link_to 'New Environment', new_environment_path %>
+<% end %>
 
 <p id="notice"><%= notice %></p>
 
@@ -27,7 +26,7 @@
     <th>Key</th>
     <th>Value</th>
     <th>Origin</th>
-    <th>Action</th>
+    <th>Actions</th>
   </tr>
   <% for var in @environment.inherited_variables %>
     <tr>
@@ -37,10 +36,11 @@
       <td>
         <input type="text" value="<%= var.value %>" name="value" /></td>
       </td>
-      <td><%= var.environment.name%></td>
-<td>
-  <ul>
-      <li>  <% if var.environment == @environment %>
+      <td>
+        <%= var.environment.name%>
+      </td>
+      <td class="actions">
+        <% if var.environment == @environment %>
           <%= link_to 'Save', environment_variable_path(@environment, var), {:class => 'button save-variable'} %>
         <% else %>
           <%= form_tag "/environments/#{@environment.name}/variables", method: 'POST' do %>
@@ -49,9 +49,8 @@
             <%= hidden_field_tag 'variable[environment_id]', @environment.id %>
             <%= submit_tag('Override', {:class => 'button'}) %>
           <% end %>
-          <% end %>
-      </li>
-      <li><%= link_to 'destroy', environment_variable_path(@environment, var), method: :delete, class: 'button', data: { confirm: 'Are you sure?' } %></li>
+        <% end %>
+        <%= link_to 'destroy', environment_variable_path(@environment, var), method: :delete, class: 'button', data: { confirm: 'Are you sure?' } %></li>
       </td>
     </tr>
   <% end %>

@@ -1,26 +1,23 @@
 <%= form_for(@environment, html: {class: 'form'}) do |f| %>
-<% if @environment.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@environment.errors.count, "error") %> prohibited this environment from being saved:</h2>
-
-  <ul>
-    <% @environment.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-
-
-<div class="row">
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-</div>
-<div class="row">
-  <%= f.label :parent %>
-  <%= f.text_field :parent_id, value: @environment.parent.try(:name) %>
-</div>
-<div class="row">
-  <%= f.submit('Create', class: 'button') %>
-</div>
+  <% if @environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@environment.errors.count, "error") %> prohibited this environment from being saved:</h2>
+      <ul>
+        <% @environment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="row">
+    <%= f.label :parent %>
+    <%= f.text_field :parent_id, value: @environment.parent.try(:name) %>
+  </div>
+  <div class="row">
+    <%= f.submit('Create', class: 'button') %>
+  </div>
 <% end %>

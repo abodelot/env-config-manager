@@ -5,22 +5,26 @@ class EnvironmentsController < ApplicationController
   # GET /environments
   # GET /environments.json
   def index
-    @environments = Environment.all
-    @environment = @environments.first
+    params[:user_id] = current_user.id
+    @environments = Environment.filter!(params)
+
+    puts "*"*80
+    puts @environments.count
     respond_to do |format|
       format.json {render json: @environments}
-      if @environment
-        format.html {redirect_to @environment}
-      else
-        format.html {render :index}
-      end
+      format.html {
+        if @environments.empty?
+          redirect_to new_environment_path
+        else
+          render :index
+        end
+      }
     end
   end
 
-  # GET /environments/1
-  # GET /environments/1.json
+  # GET /environments/:id
+  # GET /environments/:id.json
   def show
-    @environments = Environment.all
   end
 
   # GET /environments/new
@@ -40,6 +44,7 @@ class EnvironmentsController < ApplicationController
   # POST /environments.json
   def create
     @environment = Environment.new(environment_params)
+    # Add creator to access list
     @environment.users << current_user
     respond_to do |format|
       if @environment.save
@@ -58,7 +63,6 @@ class EnvironmentsController < ApplicationController
     respond_to do |format|
       puts environment_params
       if @environment.update_attributes(environment_params)
-
         format.html { redirect_to @environment, notice: 'Environment was successfully updated.' }
         format.json { render :show, status: :ok, location: @environment }
       else
@@ -117,7 +121,7 @@ class EnvironmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment
-      @environment = Environment.find_by_name_or_id!(params[:id])
+      @environment = Environment.user_id(current_user.id).find_by_name_or_id!(params[:id])
     end
 
     def set_parent
@@ -139,5 +143,4 @@ class EnvironmentsController < ApplicationController
   def set_treeview
     @treeview_root = Environment.arrange
   end
-
 end

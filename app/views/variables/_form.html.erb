@@ -1,4 +1,4 @@
-<%= form_for [@environment, @variable] do |f| %>
+<%= form_for [@environment, @variable], html: {class: 'form'} do |f| %>
   <% if @variable.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@variable.errors.count, "error") %> prohibited this variable from being saved:</h2>
@@ -10,17 +10,15 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :key %><br>
+  <div class="row">
+    <%= f.label :key %>
     <%= f.text_field :key %>
   </div>
-  <div class="field">
-    <%= f.label :value %><br>
+  <div class="row">
+    <%= f.label :value %>
     <%= f.text_field :value %>
   </div>
-
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit('Create', class: 'button') %>
   </div>
 <% end %>

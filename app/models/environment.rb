@@ -9,7 +9,12 @@ class Environment < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   validates :name, :presence => true
-  public_scope :user_id, -> (arg) {joins(:users).where(:users => {:id => arg})}
+
+  ## Scopes
+
+  public_scope :user_id, -> (arg) {
+    joins(:users).where(users: {id: arg})
+  }
 
   def self.find_by_name_or_id!(val)
     self.find_by_name_or_id(val) or raise(ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{val}"))

@@ -1,38 +1,30 @@
-
 <% content_for :sidebar do %>
-<h2>Directories</h2>
-<% puts @environments.all %>
-  <%= render :partial => 'tree', :locals => {:environments => @treeview_root} %>
+  <%= render :partial => 'environments/sidebar', :locals => {:environments => @treeview_root} %>
 <% end %>
+
 <p id="notice"><%= notice %></p>
 
+<h1>My environments</h1>
 
-<h1>Listing Directories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Ancestry</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @environments.each do |environment| %>
+<table class="data-table">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Last update</th>
+    <th></th>
+  </tr>
+  <% @environments.each do |environment| %>
     <tr>
       <td><%= environment.id %></td>
-        <td><%= environment.name %></td>
-        <td><%= environment.ancestry.nil? ? '' : Directory.find(environment.ancestry).name %></td>
-        <td><%= link_to 'Show', environment %></td>
-        <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
-        <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+      <td><%= environment.name %></td>
+      <td><%= human_date(environment.updated_at) %></td>
+      <td class="actions">
+        <%= link_to 'Show', environment %> |
+        <%= link_to 'Edit', edit_environment_path(environment) %> |
+        <%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
 </table>
-
-<br>
 
 <%= link_to 'New Directory', new_environment_path %>
