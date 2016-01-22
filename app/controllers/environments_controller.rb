@@ -141,6 +141,8 @@ class EnvironmentsController < ApplicationController
     end
 
   def set_treeview
-    @treeview_root = Environment.arrange
+    @treeview_root = Environment
+      .joins(:users)
+      .arrange(users: {id: current_user.id})
   end
 end

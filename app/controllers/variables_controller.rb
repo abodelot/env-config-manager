@@ -5,7 +5,7 @@ class VariablesController < ApplicationController
   # GET /variables
   # GET /variables.json
   def index
-    @variables = Variable.where(environment: @environment)
+    @variables = @environment.variables
   end
 
   # GET /variables/1

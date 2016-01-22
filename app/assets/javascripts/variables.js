@@ -17,7 +17,7 @@ $('a.save-variable').click(function() {
     }
   })
   .done(function() {
-    new PNotify("Variable <code>'" + key + "' with value: '" + value + "'</code> saved!")
+    new PNotify("Variable <code>'" + key + "</code>' with value: <code>'" + value + "'</code> saved!")
   })
   .fail(function() {
     new PNotify("Cannot save variable <code>" + key + "</code>");
