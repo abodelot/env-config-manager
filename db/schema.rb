@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121102301) do
+ActiveRecord::Schema.define(version: 20160122145638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,12 +23,13 @@ ActiveRecord::Schema.define(version: 20160121102301) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "environments", ["ancestry"], name: "index_environments_on_ancestry", using: :btree
   add_index "environments", ["name"], name: "index_environments_on_name", using: :btree
 
   create_table "environments_users", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "environment_id"
-    t.string   "perms",          default: "rw"
+    t.integer  "user_id",                       null: false
+    t.integer  "environment_id",                null: false
+    t.string   "perms",          default: "rw", null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
@@ -57,8 +58,8 @@ ActiveRecord::Schema.define(version: 20160121102301) do
 
   create_table "variables", force: :cascade do |t|
     t.string   "key",            null: false
-    t.string   "value"
-    t.integer  "environment_id"
+    t.string   "value",          null: false
+    t.integer  "environment_id", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
