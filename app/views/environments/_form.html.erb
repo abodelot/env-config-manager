@@ -14,10 +14,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="row">
-    <%= f.label :parent %>
-    <%= f.text_field :parent_id, value: @environment.parent.try(:name) %>
-  </div>
-  <div class="row">
     <%= f.submit(:class => 'button') %>
   </div>
 <% end %>

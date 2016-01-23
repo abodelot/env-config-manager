@@ -3,8 +3,9 @@ class CreateUsersEnvironments < ActiveRecord::Migration
     create_table :environments_users do |t|
       t.references :user, index: true, foreign_key: true
       t.references :environment, index: true, foreign_key: true
-      t.string :perms, default: 'rw'
+      t.boolean :write_access, default: true
       t.timestamps null: false
     end
+    add_index :environments_users, [:user_id, :environment_id], unique: true
   end
 end

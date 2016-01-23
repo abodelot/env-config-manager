@@ -26,6 +26,21 @@ class User < ActiveRecord::Base
 
   ## Methods
 
+  def self.update_envs
+    User.find_each do |u|
+      u.environments = u.all_environments
+      u.save!
+    end
+  end
+
+  def all_environments
+    u = self.environments.to_a
+    self.environments.each do |e|
+      u << e.descendants.to_a
+    end
+    u.flatten.uniq{|a| a.id}
+  end
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
