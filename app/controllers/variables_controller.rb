@@ -56,10 +56,17 @@ class VariablesController < ApplicationController
   # DELETE /variables/1
   # DELETE /variables/1.json
   def destroy
-    @variable.destroy
-    respond_to do |format|
-      format.html { redirect_to environment_path(@environment), notice: 'Variable was successfully destroyed.' }
-      format.json { head :no_content }
+    if @environment && @variable.environment_id !=  @environment.id
+      respond_to do |format|
+        format.html { redirect_to environment_path(@environment), alert: "#{@variable.key}: inherited variable, can be destroyed only from '#{@variable.environment.name}'" }
+        format.json { head :no_content, status: 400 }
+      end
+    else
+      @variable.destroy
+      respond_to do |format|
+        format.html { redirect_to environment_path(@environment), notice: 'Variable was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
