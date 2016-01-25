@@ -1,21 +1,25 @@
 #! /bin/bash
 
-function list_vars {
- #   echo endpoint: $VARAGER_SERVER
-#    echo token: $VARAGER_TOKEN
+function get_vars {
     app_id=`echo $1 | tr '/' '+'`
-    echo app_id: $app_id
     vars=`curl -H "Content-Type: application/json" -H "Authorization: $VARAGER_TOKEN" ${VARAGER_SERVER}/environments/${app_id}.text`
-    for var in $vars; do
-	echo $var
-    done
 
+}
+function list_vars {
+    #   echo endpoint: $VARAGER_SERVER
+    #    echo token: $VARAGER_TOKEN
+    get_vars $1
+    IFS=$'\n'
+    for var in $vars; do
+    	echo "$var"
+    done
 }
 
 function export_vars {
-	list_vars $1
+    get_vars $1
+    IFS=$'\n'
     for var in $vars; do
-	echo export $var
+	echo export "$var"
 	export $var
     done
 
