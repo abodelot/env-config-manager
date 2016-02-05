@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def set_environment
     if params.key?(:environment_id)
-      @environment = Environment.find_by_name_or_id!(params[:environment_id])
+      @environment = Environment.friendly.find(params[:environment_id])
     end
   end
 

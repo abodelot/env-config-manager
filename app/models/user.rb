@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   ## Scopes
 
   public_scope :environment_id, -> (arg) {
-    id = Environment.find_by_name_or_id(arg).id
+    id = Environment.friendly.find(arg).id
     joins(:environments).where(environments: {id: id})
   }
 

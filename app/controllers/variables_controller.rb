@@ -77,7 +77,7 @@ class VariablesController < ApplicationController
     end
 
     def set_environment
-      @environment = Environment.find_by_name_or_id!(params[:environment_id])
+      @environment = Environment.friendly.find(params[:environment_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
