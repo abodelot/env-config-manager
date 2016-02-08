@@ -8,6 +8,8 @@ class EnvironmentsController < ApplicationController
     params[:user_id] = current_user.id
     @environments = Environment.filter!(params)
 
+    puts "*"*80
+    puts @environments.count
     respond_to do |format|
       format.json {render json: @environments}
       format.html {
@@ -28,7 +30,7 @@ class EnvironmentsController < ApplicationController
   # GET /environments/new
   def new
     if !params[:parent_id].nil?
-      @parent = Environment.friendly.find(params[:parent_id])
+      @parent = Environment.find_by_name_or_id(params[:parent_id])
     end
     @environment = Environment.new(parent: @parent)
     @environment.parent = @parent
@@ -119,11 +121,11 @@ class EnvironmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment
-      @environment = Environment.user_id(current_user.id).friendly.find(params[:id])
+      @environment = Environment.user_id(current_user.id).find_by_name_or_id!(params[:id])
     end
 
     def set_parent
-      @parent = Environment.friendly.find(params[:environment][:parent_id])
+      @parent = Environment.find_by_name_or_id(params[:environment][:parent_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

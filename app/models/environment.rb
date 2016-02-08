@@ -1,14 +1,8 @@
 class Environment < ActiveRecord::Base
   include Filterable
-  extend FriendlyId
-
-  friendly_id :name, :use => :slugged
-
   DEFAULT_NAME = 'root'
 
   render_attrs :id, :name, :vars, :created_at, :updated_at
-
-  ## Relations
 
   has_ancestry
   has_many :variables, :dependent => :destroy
@@ -22,7 +16,13 @@ class Environment < ActiveRecord::Base
     joins(:users).where(users: {id: arg})
   }
 
-  ## Methods
+  def self.find_by_name_or_id!(val)
+    self.find_by_name_or_id(val) or raise(ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{val}"))
+  end
+
+  def self.find_by_name_or_id(val)
+    self.where(id: val.to_i).first or self.find_by(name: val)
+  end
 
   def create_vars(hash={})
     hash.each do |key, value|
@@ -58,8 +58,9 @@ class Environment < ActiveRecord::Base
     inherited_variables(true)
   end
 
-  # Regenerate slug on name is updated
-  def should_generate_new_friendly_id?
-    name_changed?
+  def to_param
+    name
   end
+
+
 end
