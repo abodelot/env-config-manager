@@ -24,17 +24,18 @@ ActiveRecord::Schema.define(version: 20160122145638) do
   end
 
   add_index "environments", ["ancestry"], name: "index_environments_on_ancestry", using: :btree
-  add_index "environments", ["name"], name: "index_environments_on_name", using: :btree
+  add_index "environments", ["name"], name: "index_environments_on_name", unique: true, using: :btree
 
   create_table "environments_users", force: :cascade do |t|
     t.integer  "user_id",                       null: false
     t.integer  "environment_id",                null: false
-    t.string   "perms",          default: "rw", null: false
+    t.boolean  "wrtie_access",   default: true
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
 
   add_index "environments_users", ["environment_id"], name: "index_environments_users_on_environment_id", using: :btree
+  add_index "environments_users", ["user_id", "environment_id"], name: "index_environments_users_on_user_id_and_environment_id", unique: true, using: :btree
   add_index "environments_users", ["user_id"], name: "index_environments_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

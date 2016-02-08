@@ -7,9 +7,6 @@ class EnvironmentsController < ApplicationController
   def index
     params[:user_id] = current_user.id
     @environments = Environment.filter!(params)
-
-    puts "*"*80
-    puts @environments.count
     respond_to do |format|
       format.json {render json: @environments}
       format.html {
@@ -25,15 +22,23 @@ class EnvironmentsController < ApplicationController
   # GET /environments/:id
   # GET /environments/:id.json
   def show
+    respond_to do |format|
+      format.json {render json: @environment}
+      format.html {@environment}
+      format.text {render plain: @environment.vars_text}
+    end
   end
 
   # GET /environments/new
   def new
+    name = "/"
     if !params[:parent_id].nil?
       @parent = Environment.find_by_name_or_id(params[:parent_id])
+      if @parent
+        name = @parent.name
+      end
     end
-    @environment = Environment.new(parent: @parent)
-    @environment.parent = @parent
+    @environment = Environment.new(name: name)
   end
 
   # GET /environments/1/edit
@@ -43,17 +48,14 @@ class EnvironmentsController < ApplicationController
   # POST /environments
   # POST /environments.json
   def create
-    @environment = Environment.new(environment_params)
+    @environments = Environment.create_from_path(environment_params[:name], current_user)
     # Add creator to access list
-    @environment.users << current_user
+    @environment = @environments.last
+    #    @environment.users << current_user
+    #   current_user.environments += @environments
     respond_to do |format|
-      if @environment.save
-        format.html { redirect_to @environment, notice: 'Environment was successfully created.' }
-        format.json { render :show, status: :created, location: @environment }
-      else
-        format.html { render :new }
-        format.json { render json: @environment.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @environment, notice: 'Environment was successfully created.' }
+      format.json { render :show, status: :created, location: @environment }
     end
   end
 
@@ -61,8 +63,7 @@ class EnvironmentsController < ApplicationController
   # PATCH/PUT /environments/1.json
   def update
     respond_to do |format|
-      puts environment_params
-      if @environment.update_attributes(environment_params)
+      if @environment.update_path(environment_params[:name], current_user)
         format.html { redirect_to @environment, notice: 'Environment was successfully updated.' }
         format.json { render :show, status: :ok, location: @environment }
       else
