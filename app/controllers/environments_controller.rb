@@ -86,6 +86,7 @@ class EnvironmentsController < ApplicationController
     respond_to do |format|
       if user
         @environment.users << user
+        User.update_envs
         format.html { redirect_to @environment, notice: "User #{user.email} was successfully added to #{@environment.name}" }
         format.json { render :show, status: :ok, location: @environment }
       else
@@ -100,6 +101,7 @@ class EnvironmentsController < ApplicationController
     respond_to do |format|
       if user
         user.environments.delete(@environment)
+        User.update_envs
         format.html { redirect_to @environment, notice: "#{user.email} was successfully removed from #{@environment.name}" }
         format.json { render :show, status: :ok, location: @environment }
       else
