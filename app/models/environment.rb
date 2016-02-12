@@ -30,6 +30,10 @@ class Environment < ActiveRecord::Base
     return name
   end
 
+  def basename
+    name.split("/").last
+  end
+
   def self.find_by_name_or_id!(val)
     self.find_by_name_or_id(val) or raise(ActiveRecord::RecordNotFound.new("Couldn't find environment with name #{val}"))
   end
